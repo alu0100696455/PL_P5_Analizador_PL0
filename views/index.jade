@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  h1 Analizador Descendente Predictivo Recursivo
+  div(align="center")
+    h2 Entrada
+    button(type='button', onclick="dump('/examples/example1.txt');") Ejemplo 1
+    button(type='button', onclick="dump('/examples/example2.txt');") Ejemplo 2
+    button(type='button', onclick="dump('/examples/example3.txt');") Ejemplo 3
+    br
+    br
+    #upload
+      input#select(type="file", accept=".js")
+    br
+    textarea#INPUT(placeholder="Escriba aquí. También puede arrastrar un fichero")
+    br
+    input#PARSE(type="button", value="Analizar")
+    br
+    br
+    #cajita
+      pre#OUTPUT.
+
+  #enlaces
+    a(href="./tests", target="_blank") Tests
+    br
+    a(href="https://github.com/alu0100699968/PL_P4_Analizador_Recursivo", target="_blank") GitHub
+    br
+    a(href="https://travis-ci.org/alu0100699968/PL_P4_Analizador_Recursivo", target="_blank") Travis
+  #autores
+    a(href="https://alu0100696455.github.io", target="_blank") Jonathan Exp&#243;sito Mart&#237;n
+    br
+    a(href="https://alu0100699968.github.io", target="_blank") Sergio J. Rodr&#237;guez Mart&#237;n
