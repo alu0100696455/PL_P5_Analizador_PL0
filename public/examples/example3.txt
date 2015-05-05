@@ -1,1 +1,11 @@
-begin a = 4*2 end
+const b = 2;
+
+procedure multi;
+var a;
+begin
+    a = 4 * b
+end;
+
+begin
+    call multi
+end.
