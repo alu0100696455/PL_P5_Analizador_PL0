@@ -1,7 +1,7 @@
 chai    = require 'chai'
 expect  = chai.expect
 routes  = require "../../routes/index.coffee"
-main    = require("./mainfortests.coffee")
+main    = require("../javascripts/gramatica.js")
 
 describe "Rutas", ->
   req = {}
@@ -10,52 +10,34 @@ describe "Rutas", ->
     it "Debe existir una ruta index con el titulo de la practica", ->
       res.render = (view, vars) ->
           expect(view).equal "index"
-          expect(vars.title).equal "Analizador Descendente Predictivo Recursivo"
+          expect(vars.title).equal "Analizador PL/0 con PEGJS"
       routes.index(req, res)
 
 describe "Parser", ->
-  it "Prueba de multiplicacion y resta", ->
-    result = main.parse("a = 4 * (3 - 1)")
-    expect(result.type).equal("=")
-    expect(result.right.type).equal("*")
-    expect(result.right.left.value).equal(4)
-    expect(result.right.right.type).equal("-")
-    expect(result.right.right.left.value).equal(3)
-    expect(result.right.right.right.value).equal(1)
+  it "Prueba de suma", ->
+    result = gramatica.parse("x = 3 + 7 .")
+    expect(result.block.st.right.type).equal("+")
 
-  it "Prueba de suma y division", ->
-    result = main.parse("b = 3 + (4 / 2)")
-    expect(result.type).equal("=")
-    expect(result.right.type).equal("+")
-    expect(result.right.left.value).equal(3)
-    expect(result.right.right.type).equal("/")
-    expect(result.right.right.left.value).equal(4)
-    expect(result.right.right.right.value).equal(2)
+  it "Prueba de multiplicación", ->
+    result = gramatica.parse("x = 1 * 3 .")
+    expect(result.block.st.right.type).equal("*")
 
-  it "Prueba de sentencia IF", ->
-    result = main.parse("if c == 3 then d = 15")
-    expect(result.type).equal("IF")
-    expect(result.left.type).equal("==")
-    expect(result.right.type).equal("=")
+  it "Prueba de división", ->
+    result = gramatica.parse("x = 6 / 2 .")
+    expect(result.block.st.right.type).equal("/")
 
-  it "Prueba de sentencia WHILE DO", ->
-    result = main.parse("while a==3 do b = 4")
-    expect(result.type).equal("WHILE")
-    expect(result.left.type).equal("==")
-    expect(result.right.type).equal("=")
+  it "Asociatividad a izquierdas", ->
+    result = gramatica.parse("x = 4 - 8 - 1 .")
+    expect(result.block.st.right.left.type).equal("-")
 
-  it "Prueba de llamada", ->
-    result = main.parse("call (a)")
-    expect(result.type).equal("CALL")
-    expect(result.right.type).equal("ID")
-    expect(result.right.value).equal("a")
+  it "Prueba de llamada CALL", ->
+    result = gramatica.parse("call a .")
+    expect(result.block.st.type).equal("call")
 
-  it "Prueba de operador ODD", ->
-    result = main.parse("if odd 3 then b = 4")
-    expect(result.left.type).equal("ODD")
-    expect(result.left.right.value).equal(3)
+  it "Prueba de WHILE DO", ->
+    result = gramatica.parse("while x == 3 do y = y + 1.")
+    expect(result.block.st.type).equal("IF")
 
   it "Prueba de BEGIN END", ->
-    result = main.parse("begin a = 3 end")
-    expect(result.type).equal("BEGIN")
-    expect(result.left.right.value).equal(3)
+    result = gramatica.parse("begin a = 3 end.")
+    expect(result.type).equal("program")

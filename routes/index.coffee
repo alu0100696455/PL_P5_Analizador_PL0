@@ -10,4 +10,4 @@ router = express.Router()
 module.exports =
   index: (req, res) ->
     res.render 'index',
-          title: 'Analizador Descendente Predictivo Recursivo'
+          title: 'Analizador PL/0 con PEGJS'
