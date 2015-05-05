@@ -1,13 +1,13 @@
-# Práctica 4 Procesadores de Lenguajes
+# Práctica 5 Procesadores de Lenguajes
 
 
-## Analizador Recursivo Descendente Predictivo Recursivo
+## Analizador de PL/0 con PEGJS
 
 ##### Con soporte para Travis y Heroku.
 
 ### Heroku
 
-[Aplicación en Heroku](http://analizador-lexico-recursivo.herokuapp.com/ "Heroku")
+[Aplicación en Heroku](http://analizador-pegjs.herokuapp.com/ "Heroku")
 
 ### Travis
 
